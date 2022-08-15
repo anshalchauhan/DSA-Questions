@@ -1,0 +1,23 @@
+int countTriplets(DLLNode* head, int x)
+{
+    DLLNode *head1 = head, *head2, *head3;
+    int count = 0;
+    
+    while(head1->next->next != NULL)
+    {
+        head2 = head1->next;
+        while(head2->next != NULL)
+        {
+            head3 = head2->next;
+            while(head3 != NULL)
+            {
+                if(head1->data + head2->data + head3->data == x) count++;
+                head3 = head3->next;
+            }
+            head2 = head2->next;
+        }
+        head1 = head1->next;
+    }
+    
+    return count;
+}  
