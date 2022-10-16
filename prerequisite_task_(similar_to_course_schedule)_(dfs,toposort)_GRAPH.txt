@@ -1,0 +1,34 @@
+class Solution {
+public:
+	bool isPossible(int N, vector<pair<int,int>>& prerequisites) {
+	    vector<int> visited(N,0), pathvisited(N,0);
+	    vector<int> adj[N];
+	    
+	    for(auto a:prerequisites)
+	        adj[a.second].push_back(a.first);
+	        
+	    for(int i=0;i<N;i++)
+	        if(!visited[i])
+	            if(dfs(i,visited,pathvisited,adj)) return false;
+	   
+	    return true;
+	}
+	
+	bool dfs(int node,vector<int>& visited,vector<int>& pathvisited,vector<int> adj[])
+	{
+	    visited[node] = 1;
+	    pathvisited[node] = 1;
+	    
+	    for(auto a:adj[node])
+	    {
+	        if(!visited[a])
+	            {
+	                if(dfs(a,visited,pathvisited,adj)) return true;
+	            }
+	        else if(pathvisited[a]) return true;
+	    }
+	    
+	    pathvisited[node] = 0;
+	    return false;
+	}
+};
